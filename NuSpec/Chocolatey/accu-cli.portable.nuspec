@@ -3,7 +3,7 @@
   <metadata>
     <id>accu-cli.portable</id>
     <title>Accu-CLI</title>
-    <version>0.0.3</version>
+    <version>1.0.0-pre</version>
     <authors>mwallner</authors>
     <owners>mwallner</owners>
     <projectUrl>https://github.com/mwallner/accu-cli</projectUrl>
@@ -19,9 +19,10 @@
     <tags>Versioning SCM admin</tags>
   </metadata>
   <files>
-    <file src=".\..\..\Accu-CLI\bin\Release\accu.exe" target="tools" />
-    <file src=".\..\..\Accu-CLI\bin\Release\accu.exe.config" target="tools" />
-    <file src=".\..\..\Accu-CLI\bin\Release\CommandLine.dll" target="tools" />
-    <file src=".\..\..\Accu-CLI\bin\Release\CommandLine.xml" target="tools" />
+    <file src=".\..\..\accu-cli-core\bin\Release\net7.0-windows\accu.exe" target="tools" />
+    <file src=".\..\..\accu-cli-core\bin\Release\net7.0-windows\accu.dll" target="tools" />
+    <file src=".\..\..\accu-cli-core\bin\Release\net7.0-windows\accu.deps.json" target="tools" />
+    <file src=".\..\..\accu-cli-core\bin\Release\net7.0-windows\accu.runtimeconfig.json" target="tools" />
+    <file src=".\..\..\accu-cli-core\bin\Release\net7.0-windows\CommandLine.dll" target="tools" />
   </files>
 </package>
