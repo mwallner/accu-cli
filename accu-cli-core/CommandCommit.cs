@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accu_CLI.commands;
-using Accu_CLI.helpers;
+﻿using System.Collections.Generic;
+using AccuCLI.helpers;
 using CommandLine;
 
-namespace accucli.commands
+namespace AccuCLI.commands
 {
 
   [Verb("commit", HelpText = "Keep files")]
@@ -32,7 +27,7 @@ namespace accucli.commands
       this.opts = opts;
     }
 
-    public int Do()
+    public override int Do()
     {
       string files = "";
       if (opts.AddAll)

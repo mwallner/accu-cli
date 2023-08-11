@@ -1,40 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Accu_CLI.helpers;
 
-namespace accucli.helpers
+namespace AccuCLI.helpers
 {
   class AccuRev
   {
     public static bool IsCurrentDirectoryAccurevWS()
     {
-      Console.WriteLine("you are not in a directory known by AccuRev.");
-      //TODO mw impl
-      /*
-        Usage
-          accurev info [ -v ]
-        Description
-          At its most basic level, the info command displays the values for the following characteristics of the AccuRev user environment:
-            Principal
-            Host
-            Server name
-            Port
-            DB Encoding
-            ACCUREV_BIN
-            Client time
-            Server time
-          When executed from within a workspace directory, info also displays the following additional fields:
-            Depot
-            Workspace/ref
-            Basis
-            Top <<- ??
-       */
-      return false;
+      var accurevInfoOutput = ShellExec.SimpleExecOutput("accurev", "info");
+      var workspaceRefPattern = @"Workspace/ref:\s*(.+)";
+      Regex r = new Regex(workspaceRefPattern);
+      Match m = r.Match(accurevInfoOutput);
+      return m.Success;
+    }
+
+    public static string GetCurrentDirectoryAccurevWS()
+    {
+      var accurevInfoOutput = ShellExec.SimpleExecOutput("accurev", "info");
+      var workspaceRefPattern = "Workspace/ref:\\s*(([^\\s-])+)";
+      Regex r = new Regex(workspaceRefPattern);
+      Match m = r.Match(accurevInfoOutput);
+      return m.Groups[1].Value;
     }
 
     private static List<string> AccuRevStatCommandToLocationList(string param)
@@ -71,9 +60,9 @@ namespace accucli.helpers
     }
 
 
-    internal static void PrintHistory(int numEntires)
+    internal static void PrintHistory(int numEntires, string streamRef)
     {
-      XDocument xmlDoc = XDocument.Parse(ShellExec.SimpleExecOutput("accurev", $"hist -a -fvx -t now.{numEntires}"));
+      XDocument xmlDoc = XDocument.Parse(ShellExec.SimpleExecOutput("accurev", $"hist -a -fvx -t now.{numEntires} -s {streamRef}"));
       var list = xmlDoc.Descendants()
             .Elements("transaction")
             .Select(x => new
@@ -122,5 +111,9 @@ namespace accucli.helpers
       }
     }
 
+    internal static string Diff(string file, string workspaceOrStreamRef)
+    {
+      return ShellExec.SimpleExecOutput("accurev", $"diff {file}");
+    }
   }
 }

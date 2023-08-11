@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccuCLI.helpers;
 
-namespace Accu_CLI.commands
+namespace AccuCLI.commands
 {
-  interface ICommand
+  abstract class ICommand
   {
-    int Do();
+    public abstract int Do();
+
+    public int Invoke()
+    {
+      if (AccuRev.IsCurrentDirectoryAccurevWS())
+      {
+        return Do();
+      }
+      else
+      {
+        ConsoleOutput.Section("ERROR", "not in a workspace?", System.ConsoleColor.Red);
+        return -1;
+      }
+    }
   }
 }

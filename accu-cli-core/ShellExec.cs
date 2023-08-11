@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
-namespace Accu_CLI.helpers
+namespace AccuCLI.helpers
 {
   class ShellExec
   {
@@ -23,7 +18,7 @@ namespace Accu_CLI.helpers
         p.StartInfo.FileName = filename;
         p.StartInfo.Arguments = arguments;
 
-        p.OutputDataReceived += (sender, args) => { output += args.Data; };
+        p.OutputDataReceived += (sender, args) => { output += args.Data + "\n"; };
         p.Start();
         p.BeginOutputReadLine();
         p.WaitForExit();

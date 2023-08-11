@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accu_CLI.commands;
-using Accu_CLI.helpers;
-using accucli.helpers;
+﻿using AccuCLI.helpers;
 using CommandLine;
 
-namespace accucli.commands
+namespace AccuCLI.commands
 {
 
   [Verb("log", HelpText = "pretty print keep / promote history")]
@@ -28,9 +21,10 @@ namespace accucli.commands
       this.opts = opts;
     }
 
-    public int Do()
+    public override int Do()
     {
-      AccuRev.PrintHistory(opts.historyDepth);
+      var workspaceOrStreamRef = AccuRev.GetCurrentDirectoryAccurevWS();
+      AccuRev.PrintHistory(opts.historyDepth, workspaceOrStreamRef);
       return 0;
     }
   }

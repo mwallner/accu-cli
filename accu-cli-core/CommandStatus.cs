@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Accu_CLI.commands;
-using Accu_CLI.helpers;
-using accucli.commands;
-using accucli.helpers;
+using AccuCLI.commands;
+using AccuCLI.helpers;
 using CommandLine;
 
-namespace Accu_CLI
+namespace AccuCLI
 {
   [Verb("status", HelpText = "display status of files in current workspace")]
   class StatusOption : CommonOption
@@ -35,7 +33,7 @@ namespace Accu_CLI
       }
     }
 
-    public int Do()
+    public override int Do()
     {
       PrettyPrintListForStatCommandIffHasResult("modified", 'm', AccuRev.GetModifiedFiles, -1);
       PrettyPrintListForStatCommandIffHasResult("kept", 'k', AccuRev.GetKeptFiles, 2);

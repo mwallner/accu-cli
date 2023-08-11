@@ -1,23 +1,26 @@
-﻿using System;
-using accucli.commands;
-using accucli.helpers;
+﻿using AccuCLI.commands;
 using CommandLine;
 
-namespace Accu_CLI
+namespace AccuCLI
 {
   class Program
   {
-    static int Main(string[] args)
-    {
-
-      return CommandLine.Parser.Default.ParseArguments<StatusOption, AddOption, CommitOption, PushOption, LogOption>(args).MapResult(
-        (StatusOption opts) => new CommandStatus(opts).Do(),
-        (AddOption opts) => new CommandAdd(opts).Do(),
-        (CommitOption opts) => new CommandCommit(opts).Do(),
-        (PushOption opts) => new CommandPush(opts).Do(),
-        (LogOption opts) => new CommandLog(opts).Do(),
-        errs => 1);
-    }
-
+    static int Main(string[] args) => Parser.Default.ParseArguments<
+        StatusOption, 
+        AddOption, 
+        CommitOption, 
+        PushOption, 
+        PullOption, 
+        LogOption, 
+        DiffOption>(args)
+      .MapResult(
+      (StatusOption opts) => new CommandStatus(opts).Invoke(),
+      (AddOption opts) => new CommandAdd(opts).Invoke(),
+      (CommitOption opts) => new CommandCommit(opts).Invoke(),
+      (PushOption opts) => new CommandPush(opts).Invoke(),
+      (PullOption opts) => new CommandPull(opts).Invoke(),
+      (LogOption opts) => new CommandLog(opts).Invoke(),
+      (DiffOption opts) => new CommandDiff(opts).Invoke(),
+      errs => 1);
   }
 }

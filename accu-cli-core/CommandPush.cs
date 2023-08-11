@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accu_CLI.commands;
-using Accu_CLI.helpers;
+﻿using System.Collections.Generic;
+using AccuCLI.helpers;
 using CommandLine;
 
-namespace accucli.commands
+namespace AccuCLI.commands
 {
   [Verb("push", HelpText = "promote 1-n files to accurev scm (performs promote)")]
   class PushOption : CommonOption
@@ -31,7 +26,7 @@ namespace accucli.commands
       this.opts = opts;
     }
 
-    public int Do()
+    public override int Do()
     {
       string files = "";
       if (opts.AddAll)
